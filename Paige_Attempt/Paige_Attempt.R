@@ -2,7 +2,7 @@ library(leastcostpath)
 
 #' copied from create_FETE_lcps example section, adding to do changes
 
-#' TO DO exchange for DEM of SE Arabia
+#' TO DO exchange for DEM of SE Arabia in tif format
 r <- terra::rast(system.file("extdata/SICILY_1000m.tif", package="leastcostpath"))
 
 #' TO DO will want to compare with different cost functions and numbers of neighbors
@@ -18,3 +18,8 @@ crs = terra::crs(r)))
 lcps <- create_FETE_lcps(x = slope_cs, locations = locs)
 
 #' Now, how do I see the output? 
+#' plot(lcps)
+#' 
+plot(lcps)
+
+#need to learn to save it, too
