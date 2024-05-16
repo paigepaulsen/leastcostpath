@@ -7,17 +7,127 @@ library(sf)
 # my map, first try 3 written coordinates
 # code starts direct from the example included in leastcostpath
 
-b <- terra::rast("C:\\Users\\ppaulse2\\Documents\\GitHub\\leastcostpath\\inst\\extdata\\ASTER_40N_int.tif")
-plot(b, main='DEM check') # requires library(terra), I think, don't forget
+d_orig <- rast("C:\\Users\\ppaulse2\\Documents\\GitHub\\leastcostpath\\inst\\extdata\\ASTER_40N_int.tif")
+d_orig
+#dem_mean_agg10 <- aggregate(d_orig,fact=10, fun=mean)
+dem_mean_agg05 <- aggregate(d_orig, fact=5, fun=mean)
+
+plot(dem_mean_agg05, main='DEM check')
  
-slope_cs <- create_slope_cs(x = b, cost_function = "tobler", neighbours = 4) # this is the slow part so far
+slope_cs <- create_slope_cs(x = dem_mean_agg05, cost_function = "tobler", neighbours = 4) 
 
-locs <- sf::st_sf(geometry = sf::st_sfc(
-sf::st_point(c(457377, 2616555)),
-sf::st_point(c(421219, 2751769)),
-sf::st_point(c(459816, 2616211)),
-crs = terra::crs(b)))
-plot(locs, main='check points') # it's good
+locs_tess2000 <- sf::st_sf(geometry = sf::st_sfc(
+  sf::st_point(c(	223750.5395	,	2321014.858	)),
+  sf::st_point(c(	268471.8991	,	2321014.858	)),
+  sf::st_point(c(	313193.2586	,	2321014.858	)),
+  sf::st_point(c(	357914.6182	,	2321014.858	)),
+  sf::st_point(c(	402635.9778	,	2321014.858	)),
+  sf::st_point(c(	447357.3373	,	2321014.858	)),
+  sf::st_point(c(	492078.6969	,	2321014.858	)),
+  sf::st_point(c(	536800.0564	,	2321014.858	)),
+  sf::st_point(c(	581521.416	,	2321014.858	)),
+  sf::st_point(c(	626242.7755	,	2321014.858	)),
+  sf::st_point(c(	670964.1351	,	2321014.858	)),
+  sf::st_point(c(	223750.5395	,	2365736.218	)),
+  sf::st_point(c(	268471.8991	,	2365736.218	)),
+  sf::st_point(c(	313193.2586	,	2365736.218	)),
+  sf::st_point(c(	357914.6182	,	2365736.218	)),
+  sf::st_point(c(	402635.9778	,	2365736.218	)),
+  sf::st_point(c(	447357.3373	,	2365736.218	)),
+  sf::st_point(c(	492078.6969	,	2365736.218	)),
+  sf::st_point(c(	536800.0564	,	2365736.218	)),
+  sf::st_point(c(	581521.416	,	2365736.218	)),
+  sf::st_point(c(	626242.7755	,	2365736.218	)),
+  sf::st_point(c(	670964.1351	,	2365736.218	)),
+  sf::st_point(c(	715685.4946	,	2365736.218	)),
+  sf::st_point(c(	223750.5395	,	2410457.577	)),
+  sf::st_point(c(	268471.8991	,	2410457.577	)),
+  sf::st_point(c(	313193.2586	,	2410457.577	)),
+  sf::st_point(c(	357914.6182	,	2410457.577	)),
+  sf::st_point(c(	402635.9778	,	2410457.577	)),
+  sf::st_point(c(	447357.3373	,	2410457.577	)),
+  sf::st_point(c(	492078.6969	,	2410457.577	)),
+  sf::st_point(c(	536800.0564	,	2410457.577	)),
+  sf::st_point(c(	581521.416	,	2410457.577	)),
+  sf::st_point(c(	626242.7755	,	2410457.577	)),
+  sf::st_point(c(	670964.1351	,	2410457.577	)),
+  sf::st_point(c(	715685.4946	,	2410457.577	)),
+  sf::st_point(c(	223750.5395	,	2455178.937	)),
+  sf::st_point(c(	268471.8991	,	2455178.937	)),
+  sf::st_point(c(	313193.2586	,	2455178.937	)),
+  sf::st_point(c(	357914.6182	,	2455178.937	)),
+  sf::st_point(c(	402635.9778	,	2455178.937	)),
+  sf::st_point(c(	447357.3373	,	2455178.937	)),
+  sf::st_point(c(	492078.6969	,	2455178.937	)),
+  sf::st_point(c(	536800.0564	,	2455178.937	)),
+  sf::st_point(c(	581521.416	,	2455178.937	)),
+  sf::st_point(c(	626242.7755	,	2455178.937	)),
+  sf::st_point(c(	670964.1351	,	2455178.937	)),
+  sf::st_point(c(	715685.4946	,	2455178.937	)),
+  sf::st_point(c(	760406.8542	,	2455178.937	)),
+  sf::st_point(c(	223750.5395	,	2499900.297	)),
+  sf::st_point(c(	268471.8991	,	2499900.297	)),
+  sf::st_point(c(	313193.2586	,	2499900.297	)),
+  sf::st_point(c(	357914.6182	,	2499900.297	)),
+  sf::st_point(c(	402635.9778	,	2499900.297	)),
+  sf::st_point(c(	447357.3373	,	2499900.297	)),
+  sf::st_point(c(	492078.6969	,	2499900.297	)),
+  sf::st_point(c(	536800.0564	,	2499900.297	)),
+  sf::st_point(c(	581521.416	,	2499900.297	)),
+  sf::st_point(c(	626242.7755	,	2499900.297	)),
+  sf::st_point(c(	670964.1351	,	2499900.297	)),
+  sf::st_point(c(	715685.4946	,	2499900.297	)),
+  sf::st_point(c(	223750.5395	,	2544621.656	)),
+  sf::st_point(c(	268471.8991	,	2544621.656	)),
+  sf::st_point(c(	313193.2586	,	2544621.656	)),
+  sf::st_point(c(	357914.6182	,	2544621.656	)),
+  sf::st_point(c(	402635.9778	,	2544621.656	)),
+  sf::st_point(c(	447357.3373	,	2544621.656	)),
+  sf::st_point(c(	492078.6969	,	2544621.656	)),
+  sf::st_point(c(	536800.0564	,	2544621.656	)),
+  sf::st_point(c(	581521.416	,	2544621.656	)),
+  sf::st_point(c(	626242.7755	,	2544621.656	)),
+  sf::st_point(c(	670964.1351	,	2544621.656	)),
+  sf::st_point(c(	715685.4946	,	2544621.656	)),
+  sf::st_point(c(	223750.5395	,	2589343.016	)),
+  sf::st_point(c(	268471.8991	,	2589343.016	)),
+  sf::st_point(c(	313193.2586	,	2589343.016	)),
+  sf::st_point(c(	357914.6182	,	2589343.016	)),
+  sf::st_point(c(	402635.9778	,	2589343.016	)),
+  sf::st_point(c(	447357.3373	,	2589343.016	)),
+  sf::st_point(c(	492078.6969	,	2589343.016	)),
+  sf::st_point(c(	536800.0564	,	2589343.016	)),
+  sf::st_point(c(	581521.416	,	2589343.016	)),
+  sf::st_point(c(	626242.7755	,	2589343.016	)),
+  sf::st_point(c(	670964.1351	,	2589343.016	)),
+  sf::st_point(c(	223750.5395	,	2634064.375	)),
+  sf::st_point(c(	268471.8991	,	2634064.375	)),
+  sf::st_point(c(	313193.2586	,	2634064.375	)),
+  sf::st_point(c(	357914.6182	,	2634064.375	)),
+  sf::st_point(c(	402635.9778	,	2634064.375	)),
+  sf::st_point(c(	447357.3373	,	2634064.375	)),
+  sf::st_point(c(	492078.6969	,	2634064.375	)),
+  sf::st_point(c(	536800.0564	,	2634064.375	)),
+  sf::st_point(c(	223750.5395	,	2678785.735	)),
+  sf::st_point(c(	268471.8991	,	2678785.735	)),
+  sf::st_point(c(	313193.2586	,	2678785.735	)),
+  sf::st_point(c(	357914.6182	,	2678785.735	)),
+  sf::st_point(c(	402635.9778	,	2678785.735	)),
+  sf::st_point(c(	447357.3373	,	2678785.735	)),
+  sf::st_point(c(	268471.8991	,	2723507.094	)),
+  sf::st_point(c(	313193.2586	,	2723507.094	)),
+  sf::st_point(c(	357914.6182	,	2723507.094	)),
+  sf::st_point(c(	402635.9778	,	2723507.094	)),
+  sf::st_point(c(	447357.3373	,	2723507.094	)),
+  sf::st_point(c(	313193.2586	,	2768228.454	)),
+  sf::st_point(c(	357914.6182	,	2768228.454	)),
+  sf::st_point(c(	402635.9778	,	2768228.454	)),
+  sf::st_point(c(	357914.6182	,	2812949.813	)),
+  sf::st_point(c(	402635.9778	,	2812949.813	)),
+  sf::st_point(c(	402635.9778	,	2857671.173	)),
+  crs = terra::crs(dem_mean_agg05)))
+plot(locs_tess2000, add=TRUE, main='check points') 
 
-lcps <- create_FETE_lcps(x = slope_cs, locations = locs)
-plot(lcps, main='testLCPs')
+lcps <- create_FETE_lcps(x = slope_cs, locations = locs_tess2000, ncores=23)
+vect_lcps <- vect(lcps)
+writeVector(vect_lcps, "./Paige_Attempt/output/FETE_ASTER_5_Neighb4_tobl_2000km")

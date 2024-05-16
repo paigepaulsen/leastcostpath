@@ -3,19 +3,19 @@ library(leastcostpath)
 library(sf)
 
 ### reduce raster resolution ###
-#_orig <- rast("C:\\Users\\ppaulse2\\Documents\\GitHub\\leastcostpath\\inst\\extdata\\ASTER_40N_int.tif")
-#d_orig
+d_orig <- rast("C:\\Users\\ppaulse2\\Documents\\GitHub\\leastcostpath\\inst\\extdata\\ASTER_40N_int.tif")
+d_orig
 
-#dem_mean_agg10 <- aggregate(d_orig,fact=10, fun=mean)
+dem_mean_agg10 <- aggregate(d_orig,fact=10, fun=mean)
 #dem_mean_agg05 <- aggregate(d_orig, fact=5, fun=mean)
 
 #plot(d_orig, main='original resolution DEM')
 #plot(dem_mean_agg10, main='DEM aggregated by factor of 10, mean as new value')
 
-#slope_cs <- create_slope_cs(x = dem_mean_agg10, cost_function = "tobler", neighbours = 4)
+slope_cs <- create_slope_cs(x = dem_mean_agg10, cost_function = "tobler", neighbours = 4)
 #plot(slope_cs, main='conductance matrix (dem fact= 10 value=mean) tobler, neighbors = 4')
 
-locs <- sf::st_sf(geometry = sf::st_sfc(
+locs_tess2000 <- sf::st_sf(geometry = sf::st_sfc(
   sf::st_point(c(	439029.18	,	2303801.263	)),
   sf::st_point(c(	449029.18	,	2303801.263	)),
   sf::st_point(c(	459029.18	,	2303801.263	)),
@@ -2222,8 +2222,8 @@ locs <- sf::st_sf(geometry = sf::st_sfc(
 
 #plot(locs)
 
-lcps <- create_FETE_lcps(x = slope_cs, locations = locs)
-plot(lcps, main='least cost paths Perim 50km inset points (n=72), dem fact =10 value=mean tobler neighbors 4')
+lcps <- create_FETE_lcps(x = slope_cs, locations = locs, ncores = 23)
+#plot(lcps, main='least cost paths Perim 50km inset points (n=72), dem fact =10 value=mean tobler neighbors 4')
 
 vect_lcps <- vect(lcps)
 
